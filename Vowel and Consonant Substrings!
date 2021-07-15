@@ -1,0 +1,29 @@
+
+Given a string A consisting of lowercase characters.
+
+You have to find the number of substrings in A which starts with vowel and end with consonants or vice-versa.
+
+Return the count of substring modulo 109 + 7.
+
+
+
+int Solution::solve(string A) {
+    long long v=0;
+    long long c=0;
+    long long ans=0;
+    long long mode=1000000007;
+    for(int i=0;i<A.size();i++)
+    {
+        if(A[i]=='a'||A[i]=='e'||A[i]=='i'||A[i]=='o'||A[i]=='u')
+        {
+            v++;
+            ans= (ans+c)%mode;
+        }
+        else
+        {
+            c++;
+            ans=(ans+v)%mode;
+        }
+    }
+    return (int)ans;
+}
