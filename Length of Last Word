@@ -1,0 +1,27 @@
+Given a string s consists of upper/lower-case alphabets and empty space characters ' ', return the length of last word in the string.
+
+If the last word does not exist, return 0.
+
+Note: A word is defined as a character sequence consists of non-space characters only.
+
+int Solution::lengthOfLastWord(const string A) {
+if (A.length()== 0){
+        return 0;
+    }
+    string copy(A);
+    int count=0;
+
+    for(int i=1;i<=copy.length();i++){
+        if(copy.back()==' '){
+            copy.pop_back();
+            i--;
+        }
+        else if(copy[copy.length()-i]!= ' '){
+            count++;
+        }
+        else{
+            break;
+        }
+    }
+return count;
+}
