@@ -1,0 +1,17 @@
+Given a target A on an infinite number line, i.e. -infinity to +infinity.
+
+You are currently at position 0 and you need to reach the target by moving according to the below rule:
+
+In ith move you can take i steps forward or backward.
+Find the minimum number of moves required to reach the target.
+
+int Solution::solve(int A) {
+int i=0,x=0,c=0;
+int B=abs(A);
+while(x<B || (x-B)%2!=0){
+    c++;
+    i++;
+    x+=i;
+}
+return c;
+}
