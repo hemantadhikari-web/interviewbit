@@ -1,0 +1,92 @@
+Given an integer array A of size N. You need to count the number of special elements in the given array.
+
+A element is special if removal of that element make the array balanced.
+
+Array will be balanced if sum of even index element equal to sum of odd index element.
+
+
+
+typedef long long int ll;
+
+
+int Solution::solve(vector<int> &a) {
+  
+  /* int left_odd = 0;
+    int left_even = 0;
+    int right_odd = 0;
+    int right_even = 0;
+    for(int i = 0; i < A.size(); ++i)
+    {
+        if( i % 2 == 0)
+        {
+            right_even += A[i];
+        }
+        else
+        {
+            right_odd += A[i];
+        }
+    }
+    int count = 0;
+    for(int i = 0; i < A.size(); ++i)
+    {
+        if(i % 2 == 0)
+        {
+            right_even -= A[i];
+            if(left_odd + right_even == left_even + right_odd)
+            {
+                ++count;
+            }
+            left_even += A[i];
+        }
+        else
+        {
+            right_odd -= A[i];
+            if(left_odd + right_even == left_even + right_odd)
+            {
+                ++count;
+            }
+            left_odd += A[i];
+        }
+    }
+    return count;
+*/
+
+ll n=a.size(),p=0,q=0;
+for(int i=0;i<n;i++){
+    if(i%2==0){
+        p+=a[i];
+    }
+    else{
+        q+=a[i];
+    }
+}
+ll ans=0,x=0,y=0;
+for(int i=0;i<n;i++){
+    ll x1=0,y1=1;
+    if(i%2==0){
+        p-=a[i];
+    }
+    else{
+        q-=a[i];
+    }
+    
+    x1=x+q;
+    y1=y+p;
+
+    if(x1==y1){
+        ans++;
+    }
+    
+    if(i%2==0){
+        x+=a[i];
+    }
+    else{
+        y+=a[i];
+    }
+    
+}
+return ans;
+
+
+}
+
