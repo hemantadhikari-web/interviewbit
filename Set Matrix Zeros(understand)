@@ -1,0 +1,98 @@
+Given a matrix, A of size M x N of 0s and 1s. If an element is 0, set its entire row and column to 0.
+
+Note: This will be evaluated on the extra memory used. Try to minimize the space and time complexity.
+
+Small explanation :
+
+We use the first row and column in the matrix to store what we need to store in step 2. The trick is in using the first row and column to store the information.
+Then we need to know whether or not to set the first row and column to zeroes. So, we use two boolean to store that information.
+
+Detailed explanation :
+
+So, you have 2 additional variables ( lets say R and C ). Firstly convince yourself that if in the original array, if any of the value in the first row was 0, the whole row will be 0. So R stores just that information ( whether any of the value in the row was 0 ). Now, if R = 0, your job is simple. In the end, mark every element in the first row as 0. If R = 1, then leave the row as it is ( with each cell storing whether their corresponding column has any zeroes ).
+Things work very similarily for columns.
+
+Let me demonstrate using an example.
+Lets say the array was
+
+[ 
+1 1 1
+0 1 1
+1 0 1
+]
+Now, R = 1 as everything in row 1 = 1. C = 0, as second element in first column is 0.
+Now, using first row and first column to store value about their respective columns and rows ( For the first row, column i stores if all the value in column i are 1. For the first column, row i stores if all the values in row i are 1. We leave 0,0 unassigned )
+
+[
+X 0 1
+0 . .
+0 . .
+] 
+is what you get.
+
+Now, for any entry which is not in first row or first column, entry (r,c) is 1, if its corresponding column entry in first row is 1 and corresponding row entry in first column is 1.
+
+[
+0 0 1
+0 0 0 
+0 0 0 
+]
+
+#soln
+
+class Solution {
+    public:
+        void setZeroes(vector<vector<int> > &matrix) {
+            int rownum = matrix.size();
+            if (rownum == 0)  return;
+            int colnum = matrix[0].size();
+            if (colnum == 0)  return;
+
+            bool hasZeroFirstRow = false, hasZeroFirstColumn = false;
+
+            // Does first row have zero?
+            for (int j = 0; j < colnum; ++j) {
+                if (matrix[0][j] == 0) {
+                    hasZeroFirstRow = true;
+                    break;
+                }
+            }
+
+            // Does first column have zero?
+            for (int i = 0; i < rownum; ++i) {
+                if (matrix[i][0] == 0) {
+                    hasZeroFirstColumn = true;
+                    break;
+                }
+            }
+
+            // find zeroes and store the info in first row and column
+            for (int i = 1; i < rownum; ++i) {
+                for (int j = 1; j < colnum; ++j) {
+                    if (matrix[i][j] == 0) {
+                        matrix[i][0] = 0;
+                        matrix[0][j] = 0;
+                    }
+                }
+            }
+
+            // set zeroes except the first row and column
+            for (int i = 1; i < rownum; ++i) {
+                for (int j = 1; j < colnum; ++j) {
+                    if (matrix[i][0] == 0 || matrix[0][j] == 0)  matrix[i][j] = 0;
+                }
+            }
+
+            // set zeroes for first row and column if needed
+            if (hasZeroFirstRow) {
+                for (int j = 0; j < colnum; ++j) {
+                    matrix[0][j] = 0;
+                }
+            }
+            if (hasZeroFirstColumn) {
+                for (int i = 0; i < rownum; ++i) {
+                    matrix[i][0] = 0;
+                }
+            }
+        }
+};
