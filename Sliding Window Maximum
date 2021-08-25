@@ -1,0 +1,40 @@
+Given an array of integers A.  There is a sliding window of size B which 
+
+is moving from the very left of the array to the very right. 
+
+You can only see the w numbers in the window. Each time the sliding window moves 
+
+rightwards by one position. You have to find the maximum for each window. 
+
+
+int k=B,n=A.size();
+
+std::deque<int> Qi(B);
+vector<int>ans;
+
+    int i;
+    for (i = 0; i < k; ++i)
+    {
+
+        while ((!Qi.empty()) && A[i] >=A[Qi.back()]){
+            Qi.pop_back();
+        }
+        Qi.push_back(i);
+    }
+ 
+    for (; i < n; ++i)
+    {
+
+        ans.push_back(A[Qi.front()]);
+
+        while ((!Qi.empty()) && Qi.front() <= i - k){
+            Qi.pop_front();
+        }
+        while ((!Qi.empty()) && A[i] >= A[Qi.back()]){
+            Qi.pop_back();
+        }
+            
+        Qi.push_back(i);
+    }
+    ans.push_back(A[Qi.front()]);
+return ans;
