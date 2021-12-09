@@ -1,0 +1,25 @@
+Given the root of a binary tree. Check whether it is a BST or not.
+
+
+
+
+
+
+ bool isBST(Node* root,Node* l=NULL, Node* r= NULL) 
+    {
+        // Your code here
+        if(root == NULL){
+            return 1;
+        }
+        
+        //left case
+        if(l!=NULL and root->data <=l->data){
+            return 0;
+        }
+        //right case
+        if(r!=NULL and root->data>= r->data){
+            return 0;
+        }
+        return isBSTN(root->left, l, root) and isBSTN(root->right, root, r);
+        
+    }
