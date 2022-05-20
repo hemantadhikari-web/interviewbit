@@ -1,0 +1,40 @@
+
+int Solution::solve(int A, int B) {
+//cout<<"for 1"<<endl;
+    int x=A, y=B;
+    int count=0;
+    while(x<8 && y<8){
+        x=x+1;
+        y=y+1;
+        
+        count++;
+    }
+    //cout<<"for 2nd"<<endl;
+    x=A;
+    y=B;
+    while(x>1 && y>1){
+        x=x-1;
+        y=y-1;
+        //cout<<x<< y<<endl;
+        count++;
+    }
+    //cout<<"for 3nd"<<endl;
+    x=A;
+    y=B;
+    while(x>1 && y<8){
+        x=x-1;
+        y=y+1;
+        count++;
+    }
+    //cout<<"for 4nd"<<endl;
+    x=A;
+    y=B;
+    while(y>1 && x<8){
+        x=x+1;
+        y=y-1;
+        count++;
+    }
+    return count;    
+}
+
+
