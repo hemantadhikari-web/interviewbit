@@ -1,0 +1,58 @@
+const long long mod = 1e9 + 7;
+
+#define ll long long
+
+
+vector<vector<ll>> multiply_matrices (vector<vector<ll>> &v1 , vector<vector<ll>> &v2){
+    vector<vector<ll>> ans (2 , vector<ll> (2 , 0));
+    for (int i = 0; i < 2; i++){
+        for (int j = 0; j < 2; j++){
+            ans[i][j] = 0;
+            for (int k = 0; k < 2; k++){
+                ans[i][j] += (v1[i][k] * v2[k][j]) % mod;
+                ans[i][j] %= mod;
+            }
+        }
+    }
+    return ans;
+}
+
+vector<vector<ll>> matrix_power (vector<vector<ll>> &mat, ll n){
+    // identity matrix
+    vector<vector<ll>> id (2 , vector<ll> (2, 0));
+    id[0][0] = 1;
+    id[0][1] = 0;
+    id[1][0] = 0;
+    id[1][1] = 1;
+    
+    // base case
+    if (n == 0) return id;
+    if (n == 1) return mat;
+    
+    // recurse
+    vector<vector<ll>> hd = matrix_power (mat , n / 2);
+    
+    vector<vector<ll>> ps = multiply_matrices (hd , hd);
+    
+    if (n % 2 == 0) return ps;
+    
+    return multiply_matrices (ps , mat);
+}
+
+int Solution::solve(int A) {
+    A--;
+    // base case
+    if (A == 0 || A == 1) return 1;
+    
+    // going for matrix exponentiation
+    vector<vector<ll>> t(2 , vector<ll> (2 , 0));
+    t[0][0] = 1 , t[0][1] = 1;
+    t[1][0] = 1 , t[1][1] = 0;
+    
+    vector<vector<ll>> xd = matrix_power (t , A - 1);
+    
+    // extract the answer
+    //cout<<(xd[0][0]  + xd[0][1])<<endl;
+    return (xd[0][0]  + xd[0][1]) % mod;
+}
+
