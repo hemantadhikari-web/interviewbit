@@ -1,0 +1,13 @@
+int Solution::solve(int A, int B, int C, int D) {
+int arr[5];
+arr[0]=A;
+arr[1]=B;
+arr[2]=C;
+arr[3]=D;
+
+if(arr[0]==arr[1]&& arr[2]==arr[3]){
+    return 1;
+}
+
+return 0;
+}
