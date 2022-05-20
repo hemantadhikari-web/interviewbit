@@ -1,0 +1,21 @@
+int Solution::gcd(int A, int B) {
+    /*int b = min(A,B);
+    if(b==0){
+        return max(A,B);
+    }
+
+    while(b>0){
+        if(A%b==0 && B%b==0){
+            return b;
+        }
+        b--;
+    }
+    return 1;*/
+
+   // Euclidean approch
+
+   if(B==0){
+       return A;
+   }
+   return gcd(B,A%B);
+}
