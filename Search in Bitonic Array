@@ -1,0 +1,70 @@
+//finding point of change
+int bitonic(vector<int>&A,int l,int r){
+
+    int mid = (l+r)/2;
+
+    if(A[mid]>A[mid-1] and A[mid]>A[mid+1]){return mid;}
+    else if(A[mid]>A[mid-1] and A[mid]<A[mid+1]){return bitonic(A,mid,r);}
+    else if(A[mid]<A[mid-1] and A[mid]>A[mid+1]){return bitonic(A,l,mid);}
+}
+
+int binery_1(vector<int> &A,int B, int l,int r){
+    while(l<=r){
+        int mid = l +(r-l)/2;
+        if(A[mid]==B){
+            return mid;
+        }
+        else if(A[mid]>B){
+            r=mid-1;
+        }
+        else{
+        l= mid+1;
+        }
+    }
+    return -1;
+}
+int binery_2(vector<int> &A,int B, int l,int r){
+    while(l<=r){
+        int mid = l +(r-l)/2;
+        if(A[mid]==B){
+            return mid;
+        }
+        else if(A[mid]<B){
+            r=mid-1;
+        }
+        else{
+        l= mid+1;
+        }
+    }
+    return -1;
+}
+
+
+int Solution::solve(vector<int> &A, int B) {
+    /*int size =A.size();
+    for(int i=0;i<size;i++){
+        if(A[i]==B){
+            return i;
+        }
+    }
+    return -1;*/
+    int l=0,r=A.size();
+
+    int point = bitonic(A,l,r);
+
+    if(B>A[point]){
+        return -1;
+    }
+    if(B==A[point]){
+        return point;
+    }
+    //cout<<"here"<<endl;
+
+    int asc = binery_1(A,B,0,point-1);
+    if(asc!=-1){
+        return asc;
+    }
+    //cout<<"loop _1 completed"<<endl;
+    int des = binery_2(A,B,point+1,r);
+    return des;
+}
