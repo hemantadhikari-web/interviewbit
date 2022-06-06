@@ -1,0 +1,60 @@
+int binary(vector<int> &A,int B, int l,int r){
+    while(l<=r){
+        int mid = l +(r-l)/2;
+        if(A[mid]==B){
+            return mid;
+        }else if(A[mid]>B){
+            l=l;
+            right = mid;
+        }else{
+            l = mid;
+            r= r;
+        }
+    }
+    return -1;
+}
+/*int binarySearch(vector<int> &A, int l, int r, int x)
+{
+    if (r >= l) {
+        int mid = l + (r - l) / 2;
+ 
+        // If the element is present at the middle
+        // itself
+        if (A[mid] == x)
+            return mid;
+ 
+        // If element is smaller than mid, then
+        // it can only be present in left subarray
+        if (A[mid] > x)
+            return binarySearch(A, l, mid - 1, x);
+ 
+        // Else the element can only be present
+        // in right subarray
+        return binarySearch(A, mid + 1, r, x);
+    }
+    return -1;
+}*/
+
+int Solution::solve(vector<int> &A, int B) {
+
+    if(B<A[0]){
+       // cout<<"yha1"<<endl;
+        return 0;
+    }
+    if(B>A[A.size()-1]){
+       // cout<<"yha2"<<endl;
+        return A.size();
+    }
+    int ans = B-1;
+    //cout<<ans<<endl;
+    for(int i= ans ;i<A.size();i++ ){
+        if(A[i]==B or A[i]<B){
+            ans++;
+            //cout<<ans<<"for "<<A[i]<<endl;
+        }else{
+            break;
+        }
+    }
+    return ans;
+
+}
