@@ -1,0 +1,50 @@
+stack<int> a;
+stack<int> mini;
+
+MinStack::MinStack() {
+     while(!a.empty()){
+        a.pop();
+    }
+    while(!mini.empty()){
+        mini.pop();
+    }
+}
+
+void MinStack::push(int x) {
+    if(!mini.empty()){
+        if(x <= mini.top()){
+            mini.push(x);
+        }
+    }else{
+        mini.push(x);
+    }
+
+    a.push(x);
+    
+}
+
+void MinStack::pop() {
+    if(a.empty()){
+        return;
+    }else if(a.top()==mini.top()){
+        a.pop();
+        mini.pop();
+    }else{
+        a.pop();
+    }
+
+}
+
+int MinStack::top() {
+    if(a.empty()){
+        return -1;
+    }
+return a.top();
+}
+
+int MinStack::getMin() {
+    if(mini.empty()){
+        return -1;
+    }
+return mini.top();
+}
