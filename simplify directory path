@@ -1,0 +1,30 @@
+string Solution::simplifyPath(string A) {
+    
+    stringstream ss(A);
+    string ans = "";
+    string word;
+    while(getline(ss,word,'/')){
+        //cout<<word<<" ";
+        if(word == "."){
+            continue;
+        }else if(word == ".." and ans.size()!=0){
+            ans.pop_back();
+            //cout<<word<<" ";
+            while(ans[ans.size()-1]!='/' and ans.size()!=0){
+                ans.pop_back();
+            }
+        }else{
+            ans+= word;
+        }
+        
+        if(ans[ans.size()-1]!='/'){
+            ans+='/';
+        }
+        //cout<<"ans "<<ans<<endl; 
+    }
+    if(ans.size()==1){
+        return ans;
+    }
+    ans.pop_back();
+
+    return ans;
