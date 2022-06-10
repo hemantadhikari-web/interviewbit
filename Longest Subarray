@@ -1,0 +1,33 @@
+int Solution::solve(vector<int> &A) {
+    int n=A.size();
+    /*for(int i=0;i<n;i++)
+    {
+        if(a[i]==0){a[i]=-1;}
+    }*/
+    int cs=0;
+    unordered_map<int,int>m;
+    int res=0;
+    for(int i=0;i<n;i++)
+    {
+        if(A[i]==1){
+            cs++;
+        }else{
+            cs--;
+        }
+        
+        if(cs==1){res=max(res,i+1);}
+        
+        
+        if(m.find(cs)==m.end())
+        {
+            m[cs]=i;
+        }
+        if(m.find(cs-1)!=m.end())
+        {
+            res=max(res,i-m[cs-1]);
+        }
+    }
+    return res;
+
+
+}
