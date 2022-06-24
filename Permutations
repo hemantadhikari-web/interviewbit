@@ -1,0 +1,33 @@
+int k=0;
+void print(vector<int> nums){
+    cout<<"[";
+    for(auto i : nums){
+        cout<<i<<" ";
+    }
+    cout<<"]"<<endl;
+}
+void solve(vector<int> nums,int i,vector<vector<int>> &ans)
+    {
+        //basecase
+        if(i>=nums.size()){
+            ans.push_back(nums);
+            print(nums);
+            cout<<k<<endl;
+            k++;
+            return;
+        }
+        
+        for(int j=i;j<nums.size();j++){
+            swap(nums[i],nums[j]);
+            solve(nums,i+1,ans);
+            swap(nums[i],nums[j]);
+        }
+    }
+
+vector<vector<int> > Solution::permute(vector<int> &A) {
+    vector<vector<int>> ans;
+        int i=0;
+        
+        solve(A,i,ans);
+        return ans;
+}
