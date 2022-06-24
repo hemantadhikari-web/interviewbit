@@ -1,0 +1,33 @@
+string ans;
+int checkmxm(string s,int i){
+    int ans =i;
+    i++;
+    for(;i<s.size();i++){
+        if(s[i]>s[ans]){
+            ans = i;
+        }
+    }
+    cout<<s[ans]<<endl;
+    return ans;
+}
+
+
+void helper(string A,int B,int i){
+    ans = max(A,ans);
+    if(B==0 or i>=A.size()){
+        return;
+    }
+    //cout<<A.substr(i+1)<<endl;
+    helper(A,B,i+1);
+       for(int j=i+1;j<A.size();j++){
+            swap(A[i],A[j]);
+            helper(A,--B,i+1);
+            swap(A[i],A[j]);
+           }
+}
+
+string Solution::solve(string A, int B) {
+    ans = A;
+    helper(A,B,0);
+    return ans;
+}
