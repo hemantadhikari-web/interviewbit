@@ -1,0 +1,58 @@
+int dx[4]= {1,-1,0,0};
+int dy[4]= {0,0,-1,1};
+
+void bfs(queue<pair<int,int>>&q,vector<vector<bool>>&vis,int n,int m,vector<vector<int>>&A){
+    
+    while(!q.empty()){
+        int x= q.front().first;
+        int y =q.front().second;
+        q.pop();
+        for(int i=0;i<4;i++){
+            int newx = x+dx[i];
+            int newy = y+dy[i];
+            if(newx<0 or newy<0 or newx>=n or newy>=m or vis[newx][newy]==true ){
+                continue;
+            }
+            if(A[x][y]<=A[newx][newy]){
+                q.push({newx,newy});
+                vis[newx][newy] = true;
+            }
+        }
+        
+    }
+    
+}
+
+
+int Solution::solve(vector<vector<int> > &A) {
+    int n = A.size();
+    int m = A[0].size();
+    vector<vector<bool>>bvis(n,vector<bool>(m,0));
+    vector<vector<bool>>rvis(n,vector<bool>(m,0));
+    queue<pair<int,int>> qblue,qred;
+    
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(i==0 or j==0){
+                qblue.push({i,j});
+                bvis[i][j] = 1;
+            }
+            if(i==n-1 or j==m-1){
+                qred.push({i,j});
+                rvis[i][j] = 1;
+            }
+        }
+    }
+    
+    bfs(qblue,bvis,n,m,A);
+    bfs(qred,rvis,n,m,A);
+    int ans =0;
+    for(int i=0;i<n;i++){
+        for(int j=0;j<m;j++){
+            if(bvis[i][j]==1 and rvis[i][j]==1){
+                ans++;
+            }
+        }
+    }
+    return ans;
+}
